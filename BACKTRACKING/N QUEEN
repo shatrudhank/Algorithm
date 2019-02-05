@@ -1,0 +1,62 @@
+       static bool IsValidMove(int[] board,int index,int value,int n)
+        {
+            for (int i = 0; i < index;i++)
+            {
+                if (board[i] == value)
+                    return false;
+            }
+            for (int i =index,j=value; i >=0 && j>=1; i--,j--)
+            {
+                if (board[i] == j)
+                    return false;
+            }
+            for (int i = index, j = value; i >= 0 && j <=n; i--, j++)
+            {
+                if (board[i] == j)
+                    return false;
+            }
+                return true;
+        }
+       static void SolveNQueen(int[] board,int index,int n,ref int res)
+        {
+            if(index==n)
+            {
+                res = 1;
+                Console.Write("[");
+                for (int i = 0; i < n; i++)
+                {
+                    Console.Write(board[i] + " ");
+                }
+                Console.Write("] ");
+                
+            }
+            else
+            {
+                for(int i=1;i<=n;i++)
+                {
+                   if(IsValidMove(board,index,i,n))
+                   {
+                       board[index] = i;
+                       SolveNQueen(board, index + 1, n,ref res);
+                       board[index]=0;
+                   }
+                }
+
+            }
+        }
+       static void NQueenInput()
+        {
+            int t = Ri();
+            for(int i=0;i<t;i++)
+            {
+                int n = Ri();
+                int[] board = new int[n];
+                int res = 0;
+                SolveNQueen(board,0,n,ref res);
+                if(res==0)
+                    Console.Write("-1");
+                Console.WriteLine();
+
+            }
+        }
+        
