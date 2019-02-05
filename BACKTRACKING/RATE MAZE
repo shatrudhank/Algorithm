@@ -1,0 +1,48 @@
+      static bool IsValidMove(int[,] maze,int x,int y,int n)
+        {
+            if (x < n && maze[x, y] == 1)
+                return true;
+            else
+                return false;
+        }
+        static void SolveRatInMaze(int[,] maze,int x,int y,int n)
+        {
+            if (x == n - 1 && y == n - 1)
+                return;
+            else
+            {
+                int[] xmove = { 0,1};
+                int[] ymove = { 1, 0};
+                for(int i=0;i<2;i++)
+                {
+                    int xnext = x + xmove[i];
+                    int ynext = y + ymove[i];
+                    if(IsValidMove(maze,xnext,ynext,n))
+                    {
+                        maze[xnext, ynext] = 7;
+                        SolveRatInMaze(maze, xnext, ynext, n);
+                    }
+                }
+            }
+        }
+        static void RatInput()
+        {
+            int[,] maze =    { {7, 0, 0, 0}, 
+                               {1, 1, 0, 1}, 
+                               {0, 1, 0, 0}, 
+                               {1, 1, 1, 1} 
+                            };
+            SolveRatInMaze(maze, 0, 0, 4);
+            for(int i=0;i<4;i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (maze[i, j] == 1)
+                        maze[i, j] = 0;
+                    Console.Write(maze[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+                
+        }
+       
