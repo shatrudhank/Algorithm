@@ -1,0 +1,36 @@
+        static void QuickSort(int[] arr,int i,int j)
+        {
+            if(i<j)
+            {
+                    int v=partition(arr,i,j);
+                    QuickSort(arr, 0, v - 1);
+                    QuickSort(arr, v + 1, arr.Length-1);
+            }
+        
+
+        }
+
+        private static int partition(int[] arr,int left,int right)
+        {
+            int i = left+1, j = right;
+
+            while(i<j)
+            {
+                while (arr[i] < arr[left] && i < right)
+                    i++;
+                while (arr[j] > arr[left] && j > left)
+                    j--;
+                if(i<j)
+                {
+                    int t = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = t;
+                }
+            }
+            int temp = arr[left];
+            arr[left] = arr[j];
+            arr[j] = temp;
+
+            return j;
+
+        }
