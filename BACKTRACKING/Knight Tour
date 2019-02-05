@@ -1,0 +1,54 @@
+    static bool IsValidMOve(int[,] board,int x,int y, int n)
+        {
+            if(x>=n || y>=n ||  x<0 || y<0 || board[x,y]!=0)
+            return false;
+            else
+                return true;
+        }
+        static void PrintQueenMove(int n,int[,] board)
+        {
+            for(int i=0;i<n;i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    Console.Write(board[i, j] +"  ");
+                }
+                Console.WriteLine();
+            }
+                
+        }
+        static void solveQueenMove(int n,int x,int y,int[,] board,int step,int[] xpath,int[] ypath)
+        {
+            if (step== (n * n) - 1)
+                return ;
+            else
+            {
+                for(int i=0;i<8;i++)
+                {
+                    int xnext =x+ xpath[i];
+                    int ynext = y+ypath[i];
+                    if(IsValidMOve(board,xnext,ynext,n))
+                    {
+                        board[xnext, ynext] = step;
+                        solveQueenMove(n, xnext, ynext, board, step + 1, xpath, ypath);
+
+
+                    }
+
+                }
+            }
+        }
+        static void QueenMoveInput()
+        {
+            int n = Ri();
+            int[,] board=new int[n,n];
+            int[] xpath = {2,2,-2 ,-2,1,-1,1,-1};
+            int[] ypath = {1,-1 ,1,-1,2,2,-2,-2};
+            solveQueenMove(n, 0, 0, board, 1, xpath,ypath);
+            PrintQueenMove(n,board);
+        }
+        
+         static void Main(string[] args)
+        {
+            QueenMoveInput();
+        }
