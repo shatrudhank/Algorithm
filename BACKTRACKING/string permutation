@@ -1,0 +1,27 @@
+ static void solveStringPermutation()
+        {
+            int n = Ri();
+            for (int i = 0; i < n; i++)
+            {
+                string s = Rs();
+                permutate(s.ToCharArray(), 0, s.Length);
+            }
+        }
+        static void permutate(char[] c, int pos, int n)
+        {
+            if (pos == n - 1)
+                Console.Write(new string(c) + " ");
+            else
+            {
+                for (int i = pos; i < n; i++)
+                {
+                    char t = c[pos];
+                    c[pos] = c[i];
+                    c[i] = t;
+                    permutate(c, pos + 1, n);
+                    t = c[pos];
+                    c[pos] = c[i];
+                    c[i] = t;
+                }
+            }
+        }
