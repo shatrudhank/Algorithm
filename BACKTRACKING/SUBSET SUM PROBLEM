@@ -1,0 +1,98 @@
+using System.Collections.Generic;
+using System.Linq;
+public class GFG {
+      #region INTERNAL METHODS
+    static string Rs()
+    {
+        return Console.ReadLine().Trim();
+    }
+    static string[] Rsa()
+    {
+        return Console.ReadLine().Trim().Split(' ');
+    }
+    static int Ri()
+    {
+        return ConvertToInt(Rs());
+    }
+    static long Rl()
+    {
+        return ConvertToLong(Rs());
+    }
+    public static int[] Ria(int n)
+    {
+        int[] num = new int[n];
+        string[] s = Rsa();
+        for (int i = 0; i < n; i++)
+        {
+            num[i] = ConvertToInt(s[i]);
+        }
+        return num;
+    }
+    public static int[] Ria()
+    {
+
+        string[] s = Rsa();
+        int n = s.Length;
+        int[] num = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            num[i] = ConvertToInt(s[i]);
+        }
+        return num;
+    }
+    public static int ConvertToInt(string s)
+    {
+        int y = 0;
+        foreach (char c in s)
+        {
+            y = y * 10 + (c - '0');
+        }
+        return y;
+    }
+    public static long ConvertToLong(string s)
+    {
+        long y = 0;
+        foreach (char c in s)
+        {
+            y = y * 10 + (c - '0');
+        }
+        return y;
+    }
+    #endregion
+	
+    static void Main()
+    {
+        int t = Ri();
+        for(int i=0;i<t;i++)
+        {
+            int n = Ri();
+            List<int> li = Ria().ToList();
+            int totalSum = li.Sum();
+
+            if(totalSum%2!=0)
+                Console.WriteLine("NO");
+           else if(subSetSum(li,totalSum/2,n-1))
+            {
+                Console.WriteLine("YES");
+            }
+            else
+            {
+                Console.WriteLine("NO");
+            }
+
+          
+        }
+    }
+
+    static bool subSetSum(List<int> items,int totalSum,int n)
+    {
+        if (totalSum == 0)
+            return true;
+        if (totalSum > 0 && n == 0)
+            return false;
+        if (items[n] > totalSum)
+           return subSetSum(items, totalSum, n - 1);
+        return subSetSum(items, totalSum-items[n], n - 1) || subSetSum(items, totalSum, n - 1); ;
+
+    }
+}
