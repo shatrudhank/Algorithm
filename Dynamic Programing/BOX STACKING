@@ -1,0 +1,138 @@
+package CraZx;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class CraZx {
+
+	public static void main(String[] args) throws IOException {
+	
+		int[] input=Ria();
+		int first=input[0];
+		for (int i=1;i<input.length ; i++) {
+			first=first^input[i];
+		}
+		System.out.println(first);
+	}
+	
+	 public static int maxHeight(int height[], int width[], int length[], int n)
+	   {	    
+		  int[] nh=new int[3*n];
+		  int[] nw=new int[3*n];
+		  int[] nl=new int[3*n];
+		  int[] area=new int[3*n];
+		  int[] result=new int[3*n];
+		  for(int i=0;i<n;i++)
+		  {
+			  int l=length[i];
+			  int b=width[i];
+			  int h=height[i];
+					  
+			  nh[i]=h;
+			  nw[i]=b;
+			  nl[i]=l;			  
+			  result[i]=h;
+			  area[i]=l*b;
+			  
+			  nh[n+i]=l;
+			  nw[n+i]=b;
+			  nl[n+i]=h;
+			  
+			  result[n+i]=l;
+			  area[n+i]=b*h;
+			  
+			  nh[2*n+i]=b;
+			  nw[2*n+i]=l;
+			  nl[2*n+i]=h;
+			  
+			  result[2*n+i]=b;
+			  
+			  area[2*n+i]=l*h;			  
+		  }
+		  for(int i=0;i<3*n-1;i++)
+		  {
+			  for(int j=0;j<3*n-1-i;j++)
+			  {
+				  if(area[j]<area[j+1])
+				  {
+					  int temp=area[j];
+					  area[j]=area[j+1];
+					  area[j+1]=temp;
+					  
+					  nl[j]=nl[j]+nl[j+1];
+					  nl[j+1]=nl[j]-nl[j+1];
+					  nl[j]=nl[j]-nl[j+1];
+					  
+					  nw[j]=nw[j]+nw[j+1];
+					  nw[j+1]=nw[j]-nw[j+1];
+					  nw[j]=nw[j]-nw[j+1];
+					  
+					  nh[j]=nh[j]+nh[j+1];
+					  nh[j+1]=nh[j]-nh[j+1];
+					  nh[j]=nh[j]-nh[j+1];
+				  }
+			  }
+		  }
+		  
+		  int[] maxHeight=new int[3*n];
+		 
+		  for(int i=1;i<3*n;i++)
+		  {
+			  for(int j=0;j<i;j++)
+			  {
+				  if( nl[j]>nl[i] && nw[j]>nw[i] && result[i]<result[j]+nh[i])
+				  {
+					  result[i]=result[j]+nh[i];
+				  }
+			  }
+		  }
+		  
+		 
+	   }
+	
+
+	
+    
+    static BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+    static String Rs() throws IOException
+    {
+        return   br.readLine().trim();
+    }
+    static String[] Rsa() throws IOException
+    {
+        return Rs().split(" ");
+    }
+    static int Ri() throws IOException
+    {
+        return Integer.parseInt(Rs());
+    }
+    static long Rl() throws IOException
+    {
+        return Long.parseLong(Rs());
+    }
+    public static int[] Ria(int n) throws IOException
+    {
+        int[] num = new int[n];
+        String[] s = Rsa();
+        for (int i = 0; i < n; i++)
+        {
+            num[i] = Integer.parseInt(s[i]);
+        }
+        return num;
+    }
+    public static int[] Ria() throws IOException
+    {
+
+        String[] s = Rsa();
+        int n = s.length;
+        int[] num = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            num[i] =Integer.parseInt (s[i]);
+        }
+        return num;
+    }
+   
+
+}
