@@ -3,8 +3,8 @@
             if(i<j)
             {
                     int v=partition(arr,i,j);
-                    QuickSort(arr, 0, v - 1);
-                    QuickSort(arr, v + 1, arr.Length-1);
+                    QuickSort(arr, i, v - 1);
+                    QuickSort(arr, v + 1, j);
             }
         
 
